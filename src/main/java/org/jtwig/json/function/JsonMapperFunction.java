@@ -4,18 +4,13 @@ import com.google.common.base.Function;
 import org.jtwig.context.RenderContext;
 import org.jtwig.context.RenderContextHolder;
 import org.jtwig.exceptions.CalculationException;
-import org.jtwig.functions.annotations.JtwigFunction;
-import org.jtwig.functions.annotations.Parameter;
+import org.jtwig.functions.JtwigFunctionRequest;
+import org.jtwig.functions.SimpleJtwigFunction;
 import org.jtwig.json.configuration.JsonMapperProviderConfiguration;
 import org.jtwig.json.provider.JsonMapperProvider;
 
-public class JsonMapperFunction {
+public class JsonMapperFunction extends SimpleJtwigFunction {
     private Function<Object, String> jsonMapper;
-
-    @JtwigFunction("json_encode")
-    public String encode (@Parameter("value") Object value) {
-        return jsonMapper().apply(value);
-    }
 
     private Function<Object, String> jsonMapper() {
         if (jsonMapper == null) {
@@ -31,5 +26,17 @@ public class JsonMapperFunction {
 
     protected RenderContext getRenderContext () {
         return RenderContextHolder.get();
+    }
+
+    @Override
+    public String name() {
+        return "json_encode";
+    }
+
+    @Override
+    public Object execute(JtwigFunctionRequest request) {
+        request.minimumNumberOfArguments(1).maximumNumberOfArguments(1);
+
+        return jsonMapper().apply(request.getArgument(0, Object.class));
     }
 }
