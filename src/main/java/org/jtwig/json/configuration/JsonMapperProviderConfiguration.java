@@ -25,6 +25,6 @@ public class JsonMapperProviderConfiguration {
     }
 
     public void configure(EnvironmentConfigurationBuilder environmentConfigurationBuilder) {
-        environmentConfigurationBuilder.withParameter(JSON_MAPPER_PROVIDER, new CompositeJsonMapperProvider(jsonMapperProviders));
+        environmentConfigurationBuilder.parameters().add(JSON_MAPPER_PROVIDER, new CompositeJsonMapperProvider(jsonMapperProviders));
     }
 }

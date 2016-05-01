@@ -16,7 +16,7 @@ public class JsonEncodeTest {
     @Test
     public void name() throws Exception {
         String result = JtwigTemplate.inlineTemplate("{{ variable | json_encode }}", configuration()
-                .withExtension(new JsonExtension(new JsonMapperProviderConfigurationBuilder(new DefaultJsonMapperProviderConfiguration()).build()))
+                .extensions().add(new JsonExtension(new JsonMapperProviderConfigurationBuilder(new DefaultJsonMapperProviderConfiguration()).build())).and()
                 .build())
                 .render(JtwigModel.newModel().with("variable", new TestEntity().setName("hello")));
 
