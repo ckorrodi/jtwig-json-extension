@@ -15,6 +15,6 @@ public class JsonExtension implements Extension {
     @Override
     public void configure(EnvironmentConfigurationBuilder environmentConfigurationBuilder) {
         configuration.configure(environmentConfigurationBuilder);
-        environmentConfigurationBuilder.functions().withFunction(new JsonMapperFunction());
+        environmentConfigurationBuilder.functions().add(new JsonMapperFunction());
     }
 }
